@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::env;
 use std::error::Error;
 use std::result::Result;
-use tabled::{Table, Tabled};
+use tabled::{Style, Table, Tabled};
 
 #[derive(Tabled)]
 struct TableRow {
@@ -109,7 +109,7 @@ fn print_verb(verbs: HashMap<String, Vec<Verb>>, verb: &str, mood: &str) {
             data.push(row);
         }
     }
-    let forms_table = Table::new(&data).to_string();
+    let forms_table = Table::new(&data).with(Style::PSEUDO).to_string();
     print!("{}", forms_table);
 }
 
