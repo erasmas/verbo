@@ -113,9 +113,11 @@ fn print_verb(verbs: HashMap<String, Vec<Verb>>, verb: &str, mood: &str) {
     print!("{}", forms_table);
 }
 
-fn main() {
-    let args: Vec<String> = env::args().collect();
-    let query = &args[1];
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let verb = env::args().nth(1).unwrap_or_else(|| {
+        eprintln!("¿Qué verbo?");
+        std::process::exit(1);
+    });
     let verbs = verbs();
-    print_verb(verbs, query, "Indicativo");
+    Ok(print_verb(verbs, &verb, "Indicativo"))
 }
